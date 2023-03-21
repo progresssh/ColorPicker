@@ -18,7 +18,7 @@ const ColorPicker = ({
     if (colorHexInput.match(regex)) {
       setColors([...colors, { hex: colorHexInput, name: colorNameInput }]);
     } else {
-      alert("please enter a valid regex");
+      alert("Please enter a valid hex color.");
     }
   };
 
