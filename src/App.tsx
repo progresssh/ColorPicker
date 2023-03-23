@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Color, ColorPickerInterface } from "./types/colorpickerinterface";
 
 const ColorPicker = ({
@@ -10,6 +10,7 @@ const ColorPicker = ({
   const [showColorGrid, setShowColorGrid] = useState(false);
   const [colorNameInput, setColorNameInput] = useState("");
   const [colorHexInput, setColorHexInput] = useState("");
+
   const regex = /[0-9A-Fa-f]{6}/g;
 
   const handleSubmit = (e: FormEvent) => {
@@ -32,19 +33,30 @@ const ColorPicker = ({
       </button>
       {showColorGrid && (
         <div>
-          <ul className="grid grid-flow-rows">
-            {colors.map((color, i) => (
-              <li
-                onClick={() => onColorChange(color)}
-                className="max-w-[24px]"
-                key={i}
-              >
-                <svg width="24" height="24">
-                  <rect width="24" height="24" fill={color.hex} />
-                </svg>
-              </li>
-            ))}
-          </ul>
+          <div>
+            <ul
+              style={{
+                display: "grid",
+                gap: 4,
+                gridTemplateColumns: `repeat(${Math.ceil(
+                  Math.sqrt(colors.length)
+                )}, 24px)`,
+              }}
+            >
+              {colors.map((color, i) => (
+                <li
+                  onClick={() => onColorChange(color)}
+                  className="max-w-[24px]"
+                  key={i}
+                >
+                  <svg width="24" height="24">
+                    <rect width="24" height="24" fill={color.hex} />
+                  </svg>
+                </li>
+              ))}
+            </ul>
+          </div>
+
           <form onSubmit={handleSubmit}>
             <input
               placeholder="Color Name"
