@@ -12,6 +12,7 @@ const ColorPicker = ({
   const [colorHexInput, setColorHexInput] = useState("");
 
   const regex = /[0-9A-Fa-f]{6}/g;
+  const columnNumber = Math.ceil(Math.sqrt(colors.length));
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -38,9 +39,7 @@ const ColorPicker = ({
               style={{
                 display: "grid",
                 gap: 4,
-                gridTemplateColumns: `repeat(${Math.ceil(
-                  Math.sqrt(colors.length)
-                )}, 24px)`,
+                gridTemplateColumns: `repeat(${columnNumber}, 24px)`,
               }}
             >
               {colors.map((color, i) => (
